@@ -7,6 +7,7 @@ Repozytorium z przykładami omawianymi na szkoleniu Google Maps
 Istnieje wiele pakietów, które mogą się okazać pomocne podczas tworzenia aplikacji wykorzystującej Google Maps JavaScript API.
 
 - [@types/googlemaps](https://www.npmjs.com/package/@types/googlemaps) - zbiór definicji klas i struktur danych używanych w Google Maps JS API dla transpilatora Typescript.
+- [@types/geojson](https://www.npmjs.com/package/@types/geojson) - zbiór definicji struktur danych zawartych w standardzie GeoJSON dla transpilatora Typescript.
 - [@googlemaps/loader](https://www.npmjs.com/package/@googlemaps/loader) - klasa pozwalająca na dynamiczne ładowanie Google Maps JS API używając do tego obiektów klasy Promise, lub tradycyjnych callback'ów.
 - [@googlemaps/markermanager](https://www.npmjs.com/package/@googlemaps/markermanager) - narzędzie do zautomatyzowanego zarządzania wyświetlaniem bardzo dużych ilości markerów na mapie, w celu optymalizacji wydajności działania wyświetlanej mapy.
 - [@googlemaps/jest-mocks](https://www.npmjs.com/package/@googlemaps/jest-mocks) - zestaw mocków/zaślepek dla framework'a Jest w celu imitowania Google Maps JS API w testach.
