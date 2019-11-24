@@ -1,0 +1,16 @@
+<form (submit)="onSubmit()">
+  <label>
+    Adres do zgeokodowania <input type="text" name="address" [(ngModel)]="address" required>
+  </label>
+  <button type="submit">Geokoduj</button>
+</form>
+
+<p *ngIf="errorMessage"><b>{{errorMessage}}</b></p>
+
+<ul *ngIf="(results$ | async) as results">
+  <li *ngFor="let item of results">
+    <p><i>item.formatted_address</i></p>
+    <p>Lat: {{item.geometry.location.lat()}}</p>
+    <p>Lng: {{item.geometry.location.lng()}}</p>
+  </li>
+</ul>
