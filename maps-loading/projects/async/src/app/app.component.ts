@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { GoogleMapsLoaderService } from './google-maps/google-maps-loader/google-maps-loader.service';
+import { Loader as GoogleMapsLoader } from '@googlemaps/loader';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ export class AppComponent implements AfterViewInit {
 
   map: google.maps.Map;
 
-  constructor(private mapsLoader: GoogleMapsLoaderService) { }
+  constructor(private mapsLoader: GoogleMapsLoader) { }
 
   ngAfterViewInit(): void {
     this.mapsLoader.load().then(() => {

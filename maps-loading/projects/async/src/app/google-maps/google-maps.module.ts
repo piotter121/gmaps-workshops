@@ -1,28 +1,33 @@
 import { NgModule, ModuleWithProviders, InjectionToken, Optional, SkipSelf } from '@angular/core';
-import { GoogleMapsLoaderService } from './google-maps-loader/google-maps-loader.service';
 import { GoogleMapsConfig, GOOGLE_MAPS_CONFIG } from './google-maps-config';
+import { Loader as GoogleMapsLoader } from '@googlemaps/loader';
+
+export function LoaderFactory(config: GoogleMapsConfig): GoogleMapsLoader {
+  return new GoogleMapsLoader(config);
+}
 
 @NgModule()
 export class GoogleMapsModule {
-  static forRoot(config: GoogleMapsConfig): ModuleWithProviders {
+  static forRoot(config: GoogleMapsConfig): ModuleWithProviders<GoogleMapsModule> {
     return {
       ngModule: GoogleMapsModule,
       providers: [
-        GoogleMapsLoaderService,
-        { provide: GOOGLE_MAPS_CONFIG, useValue: config },
-      ],
+        {
+          provide: GOOGLE_MAPS_CONFIG,
+          useValue: config
+        },
+        {
+          provide: GoogleMapsLoader,
+          useFactory: LoaderFactory,
+          deps: [GOOGLE_MAPS_CONFIG]
+        }
+      ]
     };
   }
 
-  constructor(
-    private mapsLoader: GoogleMapsLoaderService,
-    @Optional() @SkipSelf() parentModule: GoogleMapsModule
-  ) {
+  constructor(@Optional() @SkipSelf() parentModule: GoogleMapsModule) {
     if (parentModule) {
       throw new Error('GoogleMapsModule is already loaded. Import it in the AppModule only');
     }
-    this.mapsLoader.load().then(() => {
-      console.log('Google Maps has been loaded');
-    });
   }
 }

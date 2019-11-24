@@ -1,5 +1,5 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { GoogleMapsLoaderService } from '../../google-maps/google-maps-loader/google-maps-loader.service';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Loader as GoogleMapsLoader } from '@googlemaps/loader';
 
 @Component({
   selector: 'app-map',
@@ -11,7 +11,7 @@ export class MapComponent {
 
   map: google.maps.Map;
 
-  constructor(private mapsLoader: GoogleMapsLoaderService) { }
+  constructor(private mapsLoader: GoogleMapsLoader) { }
 
   async showMap() {
     await this.mapsLoader.load();
