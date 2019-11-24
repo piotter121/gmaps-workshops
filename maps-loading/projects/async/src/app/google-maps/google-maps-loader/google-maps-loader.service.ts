@@ -19,19 +19,28 @@ export class GoogleMapsLoaderService {
   }
 
   private doLoad(): Promise<void> {
-    const global: any = window as any;
-    if (global.google && global.google.maps) {
+    const globalContext: any = window as any;
+    if (globalContext.google && globalContext.google.maps) {
+      console.log('Google Maps JavaScript API has been already loaded');
       return Promise.resolve();
     }
-    const { apiKey, callbackName } = this.mapsConfig;
-    const script: HTMLScriptElement = this.document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=${callbackName}`;
-    script.async = true;
-    script.defer = true;
-    script.type = 'text/javascript';
     return new Promise((resolve) => {
-      global[callbackName] = resolve;
+      const script: HTMLScriptElement = this.document.createElement('script');
+      script.src = this.createScrForTag();
+      script.async = true;
+      script.defer = true;
+      script.type = 'text/javascript';
+      globalContext[this.mapsConfig.callback] = () => resolve();
       this.document.body.appendChild(script);
     });
+  }
+
+  private createScrForTag(): string {
+    const { key, callback, libraries } = this.mapsConfig;
+    let src = `https://maps.googleapis.com/maps/api/js?key=${key}&callback=${callback}`;
+    if (libraries !== undefined) {
+      src += `&libraries=${libraries.join(',')}`;
+    }
+    return src;
   }
 }
