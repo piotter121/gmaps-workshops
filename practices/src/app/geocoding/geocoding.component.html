@@ -7,10 +7,7 @@
 
 <p *ngIf="errorMessage"><b>{{errorMessage}}</b></p>
 
-<ul *ngIf="(results$ | async) as results">
-  <li *ngFor="let item of results">
-    <p><i>item.formatted_address</i></p>
-    <p>Lat: {{item.geometry.location.lat()}}</p>
-    <p>Lng: {{item.geometry.location.lng()}}</p>
-  </li>
-</ul>
+<div *ngIf="(results$ | async) as results">
+  <p>Wyniki</p>
+  <p class="results">{{results | json}}</p>
+</div>
