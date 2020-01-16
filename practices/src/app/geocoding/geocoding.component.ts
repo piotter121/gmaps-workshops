@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { GeocoderService } from '../google-maps/geocoder.service';
-import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-geocoding',
@@ -11,20 +9,17 @@ import { catchError } from 'rxjs/operators';
 export class GeocodingComponent {
   address: string;
 
-  results$: Observable<google.maps.GeocoderResult[]>;
-  errorMessage: string | null;
+  results$: Promise<google.maps.GeocoderResult[]>;
+  errorMessage?: string;
 
   constructor(private geocoder: GeocoderService) { }
 
   onSubmit(): void {
-    this.errorMessage = null;
-    this.results$ = this.geocoder.geocode({
-      address: this.address
-    }).pipe(
-      catchError((status: google.maps.GeocoderStatus, results$) => {
+    delete this.errorMessage;
+    this.results$ = this.geocoder.geocode({ address: this.address })
+      .catch((status: google.maps.GeocoderStatus) => {
         this.errorMessage = `Otrzymano następujący status: ${status}`;
-        return results$;
-      })
-    );
+        return [];
+      });
   }
 }
