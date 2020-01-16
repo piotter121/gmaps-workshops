@@ -11,3 +11,16 @@
   <p>Wyniki</p>
   <p class="results">{{results | json}}</p>
 </div>
+
+<form (submit)="onReverseGeocodeSubmit()">
+  <label>Latitude <input type="number" name="latitude" [(ngModel)]="lat"></label>
+  <label>Longitude <input type="number" name="longitude" [(ngModel)]="lng"></label>
+  <button type="submit">Geokoduj</button>
+</form>
+
+<p *ngIf="reverseGeocodeErrorMessage"><b>{{reverseGeocodeErrorMessage}}</b></p>
+
+<div *ngIf="(reverseGeocodeResults$ | async) as results">
+  <p>Wyniki</p>
+  <p class="results">{{results | json}}</p>
+</div>
