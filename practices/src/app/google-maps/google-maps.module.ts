@@ -2,6 +2,8 @@ import { NgModule, ModuleWithProviders, InjectionToken, Optional, SkipSelf } fro
 import { GoogleMapsConfig, GOOGLE_MAPS_CONFIG } from './google-maps-config';
 import { Loader as GoogleMapsLoader } from '@googlemaps/loader';
 import { GeocoderService } from './geocoder.service';
+import { PlacesServiceFactory } from './places.service';
+import { MapService } from './map.service';
 
 export function LoaderFactory(config: GoogleMapsConfig): GoogleMapsLoader {
   return new GoogleMapsLoader(config);
@@ -22,7 +24,9 @@ export class GoogleMapsModule {
           useFactory: LoaderFactory,
           deps: [GOOGLE_MAPS_CONFIG]
         },
-        GeocoderService
+        GeocoderService,
+        PlacesServiceFactory,
+        MapService
       ]
     };
   }

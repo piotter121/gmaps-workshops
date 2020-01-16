@@ -1,0 +1,9 @@
+<form (submit)="onSubmit()">
+  <label>Text search query: <input type="text" name="query" [(ngModel)]="query" required></label>
+  <button type="submit" [disabled]="!query">Search</button>
+</form>
+
+<div *ngIf="(results$ | async) as results" style="white-space: pre;">{{results | json}}</div>
+
+<div style="height: 600px;" #map>
+</div>
